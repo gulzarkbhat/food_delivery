@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_app/models/note.dart';
+import 'package:flutter_app/screens/Constants.dart';
 import 'package:flutter_app/utils/database_helper.dart';
 import 'package:intl/intl.dart';
 
@@ -23,8 +24,6 @@ class NoteDetailState extends State<NoteDetail> {
   String appBarTitle;
   Note note;
 
-
-
   TextEditingController nameController = TextEditingController();
   TextEditingController addressController = TextEditingController();
   TextEditingController phoneController = TextEditingController();
@@ -34,10 +33,7 @@ class NoteDetailState extends State<NoteDetail> {
 
   @override
   Widget build(BuildContext context) {
-    TextStyle textStyle = Theme
-        .of(context)
-        .textTheme
-        .title;
+    TextStyle textStyle = Theme.of(context).textTheme.title;
 
     nameController.text = note.title;
     addressController.text = note.description;
@@ -56,6 +52,19 @@ class NoteDetailState extends State<NoteDetail> {
                   // Write some code to control things, when user press back button in AppBar
                   moveToLastScreen();
                 }),
+            actions: <Widget>[
+              PopupMenuButton<String>(
+                onSelected: choiceSelection,
+                itemBuilder: (BuildContext context) {
+                  return Constants.choices.map((String choice) {
+                    return PopupMenuItem<String>(
+                      value: choice,
+                      child: Text(choice),
+                    );
+                  }).toList();
+                },
+              ),
+            ],
           ),
           body: Padding(
             padding: EdgeInsets.only(top: 15.0, left: 10.0, right: 10.0),
@@ -64,12 +73,17 @@ class NoteDetailState extends State<NoteDetail> {
                 // First element
 
                 Padding(
-                  padding: const EdgeInsets.only(left:100.0),
+                  padding: const EdgeInsets.only(left: 100.0),
                   child: CheckboxListTile(
-                    title: const Text('Food Available',style: TextStyle(fontSize: 18.0,color: Colors.blue),),
+                    title: const Text(
+                      'Food Available',
+                      style: TextStyle(fontSize: 18.0, color: Colors.blue),
+                    ),
                     value: true,
                     onChanged: (bool value) {
-                      setState(() { !value; });
+                      setState(() {
+                        !value;
+                      });
                     },
                     secondary: const Icon(Icons.grain),
                   ),
@@ -97,7 +111,6 @@ class NoteDetailState extends State<NoteDetail> {
 //                    )
 //                  ],
 //                ),
-
 
 //                ListTile(
 //                  title: DropdownButton(
@@ -128,8 +141,10 @@ class NoteDetailState extends State<NoteDetail> {
                       updateTitle();
                     },
                     decoration: InputDecoration(
-                        icon: Icon(Icons.contacts,color: Colors.green,),
-
+                        icon: Icon(
+                          Icons.contacts,
+                          color: Colors.green,
+                        ),
                         labelText: 'Name',
                         labelStyle: textStyle,
                         border: OutlineInputBorder(
@@ -148,8 +163,10 @@ class NoteDetailState extends State<NoteDetail> {
                       updateDescription();
                     },
                     decoration: InputDecoration(
-                        icon: Icon(Icons.my_location,color: Colors.green,),
-
+                        icon: Icon(
+                          Icons.my_location,
+                          color: Colors.green,
+                        ),
                         labelText: 'Address',
                         labelStyle: textStyle,
                         border: OutlineInputBorder(
@@ -167,7 +184,10 @@ class NoteDetailState extends State<NoteDetail> {
                     },
                     keyboardType: TextInputType.phone,
                     decoration: InputDecoration(
-                      icon: Icon(Icons.phone,color: Colors.green,),
+                        icon: Icon(
+                          Icons.phone,
+                          color: Colors.green,
+                        ),
                         labelText: 'Phone',
                         labelStyle: textStyle,
                         border: OutlineInputBorder(
@@ -185,8 +205,10 @@ class NoteDetailState extends State<NoteDetail> {
                     },
                     keyboardType: TextInputType.emailAddress,
                     decoration: InputDecoration(
-                        icon: Icon(Icons.email,color: Colors.blue,),
-
+                        icon: Icon(
+                          Icons.email,
+                          color: Colors.blue,
+                        ),
                         labelText: 'E-Mail',
                         labelStyle: textStyle,
                         border: OutlineInputBorder(
@@ -200,12 +222,8 @@ class NoteDetailState extends State<NoteDetail> {
                     children: <Widget>[
                       Expanded(
                         child: RaisedButton(
-                          color: Theme
-                              .of(context)
-                              .primaryColorDark,
-                          textColor: Theme
-                              .of(context)
-                              .primaryColorLight,
+                          color: Theme.of(context).primaryColorDark,
+                          textColor: Theme.of(context).primaryColorLight,
                           child: Text(
                             'Save',
                             textScaleFactor: 1.5,
@@ -223,12 +241,8 @@ class NoteDetailState extends State<NoteDetail> {
                       ),
                       Expanded(
                         child: RaisedButton(
-                          color: Theme
-                              .of(context)
-                              .primaryColorDark,
-                          textColor: Theme
-                              .of(context)
-                              .primaryColorLight,
+                          color: Theme.of(context).primaryColorDark,
+                          textColor: Theme.of(context).primaryColorLight,
                           child: Text(
                             'Delete',
                             textScaleFactor: 1.5,
@@ -346,5 +360,13 @@ class NoteDetailState extends State<NoteDetail> {
       content: Text(message),
     );
     showDialog(context: context, builder: (_) => alertDialog);
+  }
+
+  void choiceSelection(String choice) {
+    if (choice == Constants.Settings)
+      print("Settings");
+    else if (choice == Constants.SignOut)
+      print("Sign Out");
+    else if (choice == Constants.Subsribe) print("Subsribe");
   }
 }
