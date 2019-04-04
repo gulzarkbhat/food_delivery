@@ -77,6 +77,7 @@ class NoteDetailState extends State<NoteDetail> {
                   child: CheckboxListTile(
                     title: const Text(
                       'Food Available',
+                      siz
                       style: TextStyle(fontSize: 18.0, color: Colors.blue),
                     ),
                     value: true,
@@ -85,7 +86,7 @@ class NoteDetailState extends State<NoteDetail> {
                         !value;
                       });
                     },
-                    secondary: const Icon(Icons.grain),
+                    secondary: const Icon(Icons.restaurant,color: Colors.deepOrange,),
                   ),
                 ),
 //                Row(
