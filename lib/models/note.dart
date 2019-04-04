@@ -1,24 +1,24 @@
 class Note {
   int _id;
-  String _title;
-  String _description;
+  String _name;
+  String _address;
   String _phone;
   String _email;
   String _date;
   int _priority;
 
-  Note(this._title, this._date, this._priority, this._phone, this._email,
-      [this._description]);
+  Note(this._name, this._date, this._priority, this._phone, this._email,
+      [this._address]);
 
-  Note.withId(this._id, this._title, this._date, this._priority, this._phone,
+  Note.withId(this._id, this._name, this._date, this._priority, this._phone,
       this._email,
-      [this._description]);
+      [this._address]);
 
   int get id => _id;
 
-  String get title => _title;
+  String get name => _name;
 
-  String get description => _description;
+  String get address => _address;
 
   int get priority => _priority;
 
@@ -28,15 +28,15 @@ class Note {
 
   String get email => _email;
 
-  set title(String newTitle) {
+  set name(String newTitle) {
     if (newTitle.length <= 255) {
-      this._title = newTitle;
+      this._name = newTitle;
     }
   }
 
-  set description(String newDescription) {
+  set address(String newDescription) {
     if (newDescription.length <= 255) {
-      this._description = newDescription;
+      this._address = newDescription;
     }
   }
 
@@ -74,8 +74,8 @@ class Note {
     if (id != null) {
       map['id'] = _id;
     }
-    map['title'] = _title;
-    map['description'] = _description;
+    map['name'] = _name;
+    map['address'] = _address;
     map['priority'] = _priority;
     map['date'] = _date;
     map['contact'] = _phone;
@@ -87,8 +87,8 @@ class Note {
   // Extract a Note object from a Map object
   Note.fromMapObject(Map<String, dynamic> map) {
     this._id = map['id'];
-    this._title = map['title'];
-    this._description = map['description'];
+    this._name = map['name'];
+    this._address = map['address'];
     this._priority = map['priority'];
     this._date = map['date'];
     this._phone = map['contact'];

@@ -35,8 +35,10 @@ class NoteDetailState extends State<NoteDetail> {
   Widget build(BuildContext context) {
     TextStyle textStyle = Theme.of(context).textTheme.title;
 
-    nameController.text = note.title;
-    addressController.text = note.description;
+    nameController.text = note.name;
+    addressController.text = note.address;
+    phoneController.text = note.phone;
+    emailController.text = note.email;
 
     return WillPopScope(
         onWillPop: () {
@@ -77,7 +79,7 @@ class NoteDetailState extends State<NoteDetail> {
                   child: CheckboxListTile(
                     title: const Text(
                       'Food Available',
-                      siz
+
                       style: TextStyle(fontSize: 18.0, color: Colors.blue),
                     ),
                     value: true,
@@ -297,12 +299,12 @@ class NoteDetailState extends State<NoteDetail> {
 
   // Update the title of Note object
   void updateTitle() {
-    note.title = nameController.text;
+    note.name = nameController.text;
   }
 
   // Update the description of Note object
   void updateDescription() {
-    note.description = addressController.text;
+    note.address = addressController.text;
   }
 
   void updateContact() {
