@@ -54,20 +54,20 @@ class FoodDetailState extends State<FoodDetail> {
                   // Write some code to control things, when user press back button in AppBar
                   moveToLastScreen();
                 }),
-            actions: <Widget>[
-              PopupMenuButton<String>(
-                onSelected: choiceSelection,
-                itemBuilder: (BuildContext context) {
-                  return Constants.choices.map((String choice) {
-                    return PopupMenuItem<String>(
-                      value: choice,
-                      child: Text(choice),
-                    );
-                  }).toList();
-
-                },
-              ),
-            ],
+//            actions: <Widget>[
+//              PopupMenuButton<String>(
+//                onSelected: choiceSelection,
+//                itemBuilder: (BuildContext context) {
+//                  return Constants.choices.map((String choice) {
+//                    return PopupMenuItem<String>(
+//                      value: choice,
+//                      child: Text(choice),
+//                    );
+//                  }).toList();
+//
+//                },
+//              ),
+//            ],
           ),
           body: Padding(
             padding: EdgeInsets.only(top: 15.0, left: 10.0, right: 10.0),

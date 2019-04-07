@@ -32,7 +32,7 @@ class FoodStatusListState extends State<FoodStatusList> {
     return Scaffold(
 
 	    appBar: AppBar(
-		    title: Text('Food'),
+		    title: Text('Food Donate'),
 	    ),
 
 	    body: getFoodListView(),
