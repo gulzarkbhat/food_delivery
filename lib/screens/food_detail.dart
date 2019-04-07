@@ -64,6 +64,7 @@ class NoteDetailState extends State<NoteDetail> {
                       child: Text(choice),
                     );
                   }).toList();
+
                 },
               ),
             ],
