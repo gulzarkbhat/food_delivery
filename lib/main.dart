@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_app/screens/note_list.dart';
-import 'package:flutter_app/screens/note_detail.dart';
+import 'package:flutter_app/screens/food_list.dart';
+import 'package:flutter_app/screens/food_detail.dart';
 
 void main() {
 	runApp(MyApp());
