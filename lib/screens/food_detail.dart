@@ -6,7 +6,7 @@ import 'package:intl/intl.dart';
 
 class NoteDetail extends StatefulWidget {
   final String appBarTitle;
-  final Note note;
+  final Food note;
 
   NoteDetail(this.note, this.appBarTitle);
 
@@ -22,7 +22,7 @@ class NoteDetailState extends State<NoteDetail> {
   DatabaseHelper helper = DatabaseHelper();
 
   String appBarTitle;
-  Note note;
+  Food note;
 
   TextEditingController nameController = TextEditingController();
   TextEditingController addressController = TextEditingController();

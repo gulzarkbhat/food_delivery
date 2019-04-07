@@ -62,14 +62,14 @@ class DatabaseHelper {
 	}
 
 	// Insert Operation: Insert a Note object to database
-	Future<int> insertNote(Note note) async {
+	Future<int> insertNote(Food note) async {
 		Database db = await this.database;
 		var result = await db.insert(noteTable, note.toMap());
 		return result;
 	}
 
 	// Update Operation: Update a Note object and save it to database
-	Future<int> updateNote(Note note) async {
+	Future<int> updateNote(Food note) async {
 		var db = await this.database;
 		var result = await db.update(noteTable, note.toMap(), where: '$colId = ?', whereArgs: [note.id]);
 		return result;
@@ -91,15 +91,15 @@ class DatabaseHelper {
 	}
 
 	// Get the 'Map List' [ List<Map> ] and convert it to 'Note List' [ List<Note> ]
-	Future<List<Note>> getNoteList() async {
+	Future<List<Food>> getNoteList() async {
 
 		var noteMapList = await getNoteMapList(); // Get 'Map List' from database
 		int count = noteMapList.length;         // Count the number of map entries in db table
 
-		List<Note> noteList = List<Note>();
+		List<Food> noteList = List<Food>();
 		// For loop to create a 'Note List' from a 'Map List'
 		for (int i = 0; i < count; i++) {
-			noteList.add(Note.fromMapObject(noteMapList[i]));
+			noteList.add(Food.fromMapObject(noteMapList[i]));
 		}
 
 		return noteList;

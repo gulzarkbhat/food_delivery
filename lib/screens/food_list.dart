@@ -18,14 +18,14 @@ class NoteList extends StatefulWidget {
 class NoteListState extends State<NoteList> {
 
 	DatabaseHelper databaseHelper = DatabaseHelper();
-	List<Note> noteList;
+	List<Food> noteList;
 	int count = 0;
 
 	@override
   Widget build(BuildContext context) {
 
 		if (noteList == null) {
-			noteList = List<Note>();
+			noteList = List<Food>();
 			updateListView();
 		}
 
@@ -40,7 +40,7 @@ class NoteListState extends State<NoteList> {
 	    floatingActionButton: FloatingActionButton(
 		    onPressed: () {
 		      debugPrint('FAB clicked');
-		      navigateToDetail(Note('', '', 2,'',''), 'Add Note');
+		      navigateToDetail(Food('', '', 2,'',''), 'Add Note');
 		    },
 
 		    tooltip: 'Add Note',
@@ -121,7 +121,7 @@ class NoteListState extends State<NoteList> {
 		}
 	}
 
-	void _delete(BuildContext context, Note note) async {
+	void _delete(BuildContext context, Food note) async {
 
 		int result = await databaseHelper.deleteNote(note.id);
 		if (result != 0) {
@@ -136,7 +136,7 @@ class NoteListState extends State<NoteList> {
 		Scaffold.of(context).showSnackBar(snackBar);
 	}
 
-  void navigateToDetail(Note note, String title) async {
+  void navigateToDetail(Food note, String title) async {
 	  bool result = await Navigator.push(context, MaterialPageRoute(builder: (context) {
 		  return NoteDetail(note, title);
 	  }));
@@ -151,7 +151,7 @@ class NoteListState extends State<NoteList> {
 		final Future<Database> dbFuture = databaseHelper.initializeDatabase();
 		dbFuture.then((database) {
 
-			Future<List<Note>> noteListFuture = databaseHelper.getNoteList();
+			Future<List<Food>> noteListFuture = databaseHelper.getNoteList();
 			noteListFuture.then((noteList) {
 				setState(() {
 				  this.noteList = noteList;

@@ -1,4 +1,4 @@
-class Note {
+class Food {
   int _id;
   String _name;
   String _address;
@@ -7,10 +7,10 @@ class Note {
   String _date;
   int _priority;
 
-  Note(this._name, this._date, this._priority, this._phone, this._email,
+  Food(this._name, this._date, this._priority, this._phone, this._email,
       [this._address]);
 
-  Note.withId(this._id, this._name, this._date, this._priority, this._phone,
+  Food.withId(this._id, this._name, this._date, this._priority, this._phone,
       this._email,
       [this._address]);
 
@@ -85,7 +85,7 @@ class Note {
   }
 
   // Extract a Note object from a Map object
-  Note.fromMapObject(Map<String, dynamic> map) {
+  Food.fromMapObject(Map<String, dynamic> map) {
     this._id = map['id'];
     this._name = map['name'];
     this._address = map['address'];
