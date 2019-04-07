@@ -6,44 +6,44 @@ import 'package:flutter_app/screens/food_detail.dart';
 import 'package:sqflite/sqflite.dart';
 
 
-class NoteList extends StatefulWidget {
+class FoodStatusList extends StatefulWidget {
 
 	@override
   State<StatefulWidget> createState() {
 
-    return NoteListState();
+    return FoodStatusListState();
   }
 }
 
-class NoteListState extends State<NoteList> {
+class FoodStatusListState extends State<FoodStatusList> {
 
 	DatabaseHelper databaseHelper = DatabaseHelper();
-	List<Food> noteList;
+	List<Food> foodStatusList;
 	int count = 0;
 
 	@override
   Widget build(BuildContext context) {
 
-		if (noteList == null) {
-			noteList = List<Food>();
+		if (foodStatusList == null) {
+			foodStatusList = List<Food>();
 			updateListView();
 		}
 
     return Scaffold(
 
 	    appBar: AppBar(
-		    title: Text('Notes'),
+		    title: Text('Food'),
 	    ),
 
-	    body: getNoteListView(),
+	    body: getFoodListView(),
 
 	    floatingActionButton: FloatingActionButton(
 		    onPressed: () {
 		      debugPrint('FAB clicked');
-		      navigateToDetail(Food('', '', 2,'',''), 'Add Note');
+		      navigateToDetail(Food('', '', 2,'',''), 'Add Food');
 		    },
 
-		    tooltip: 'Add Note',
+		    tooltip: 'Add Food',
 
 		    child: Icon(Icons.add),
 
@@ -51,7 +51,7 @@ class NoteListState extends State<NoteList> {
     );
   }
 
-  ListView getNoteListView() {
+  ListView getFoodListView() {
 
 		TextStyle titleStyle = Theme.of(context).textTheme.subhead;
 
@@ -64,25 +64,25 @@ class NoteListState extends State<NoteList> {
 					child: ListTile(
 
 						leading: CircleAvatar(
-							backgroundColor: getPriorityColor(this.noteList[position].priority),
-							child: getPriorityIcon(this.noteList[position].priority),
+							backgroundColor: getPriorityColor(this.foodStatusList[position].priority),
+							child: getPriorityIcon(this.foodStatusList[position].priority),
 						),
 
-						title: Text(this.noteList[position].name, style: titleStyle,),
+						title: Text(this.foodStatusList[position].name, style: titleStyle,),
 
-						subtitle: Text(this.noteList[position].date),
+						subtitle: Text(this.foodStatusList[position].date),
 
 						trailing: GestureDetector(
 							child: Icon(Icons.delete, color: Colors.red,),
 							onTap: () {
-								_delete(context, noteList[position]);
+								_delete(context, foodStatusList[position]);
 							},
 						),
 
 
 						onTap: () {
 							debugPrint("ListTile Tapped");
-							navigateToDetail(this.noteList[position],'Edit Note');
+							navigateToDetail(this.foodStatusList[position],'Edit Food');
 						},
 
 					),
@@ -125,7 +125,7 @@ class NoteListState extends State<NoteList> {
 
 		int result = await databaseHelper.deleteNote(note.id);
 		if (result != 0) {
-			_showSnackBar(context, 'Note Deleted Successfully');
+			_showSnackBar(context, 'Food Deleted Successfully');
 			updateListView();
 		}
 	}
@@ -136,9 +136,9 @@ class NoteListState extends State<NoteList> {
 		Scaffold.of(context).showSnackBar(snackBar);
 	}
 
-  void navigateToDetail(Food note, String title) async {
+  void navigateToDetail(Food food, String title) async {
 	  bool result = await Navigator.push(context, MaterialPageRoute(builder: (context) {
-		  return NoteDetail(note, title);
+		  return NoteDetail(food, title);
 	  }));
 
 	  if (result == true) {
@@ -154,7 +154,7 @@ class NoteListState extends State<NoteList> {
 			Future<List<Food>> noteListFuture = databaseHelper.getNoteList();
 			noteListFuture.then((noteList) {
 				setState(() {
-				  this.noteList = noteList;
+				  this.foodStatusList = noteList;
 				  this.count = noteList.length;
 				});
 			});
