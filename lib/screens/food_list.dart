@@ -64,8 +64,8 @@ class FoodStatusListState extends State<FoodStatusList> {
 					child: ListTile(
 
 						leading: CircleAvatar(
-							backgroundColor: getPriorityColor(this.foodStatusList[position].priority),
-							child: getPriorityIcon(this.foodStatusList[position].priority),
+							backgroundColor: getFoodAvailibilityColor(this.foodStatusList[position].foodstate),
+							child: getPriorityIcon(this.foodStatusList[position].foodstate),
 						),
 
 						title: Text(this.foodStatusList[position].name, style: titleStyle,),
@@ -92,7 +92,7 @@ class FoodStatusListState extends State<FoodStatusList> {
   }
 
   // Returns the priority color
-	Color getPriorityColor(int priority) {
+	Color getFoodAvailibilityColor(int priority) {
 		switch (priority) {
 			case 1:
 				return Colors.red;

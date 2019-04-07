@@ -17,7 +17,7 @@ class NoteDetail extends StatefulWidget {
 }
 
 class NoteDetailState extends State<NoteDetail> {
-  static var _priorities = ['High', 'Low'];
+  static var _foodavailibility = ['Yes', 'No'];
 
   DatabaseHelper helper = DatabaseHelper();
 
@@ -75,23 +75,25 @@ class NoteDetailState extends State<NoteDetail> {
               children: <Widget>[
                 // First element
 
-                Padding(
-                  padding: const EdgeInsets.only(left: 100.0),
-                  child: CheckboxListTile(
-                    title: const Text(
-                      'Food Available',
-
-                      style: TextStyle(fontSize: 18.0, color: Colors.blue),
-                    ),
-                    value: true,
-                    onChanged: (bool value) {
-                      setState(() {
-                        !value;
-                      });
-                    },
-                    secondary: const Icon(Icons.restaurant,color: Colors.deepOrange,),
-                  ),
-                ),
+//                Padding(
+//                  padding: const EdgeInsets.only(left: 100.0),
+//                  child: CheckboxListTile(
+//                    title: const Text(
+//                      'Food Available',
+//
+//                      style: TextStyle(fontSize: 18.0, color: Colors.blue),
+//                    ),
+//                    value: true,
+//                    onChanged: (bool value) {
+//                      setState(() {
+//                        if()
+//                        updatePriorityAsInt(value);
+//
+//                      });
+//                    },
+//                    secondary: const Icon(Icons.restaurant,color: Colors.deepOrange,),
+//                  ),
+//                ),
 //                Row(
 //                  mainAxisAlignment: MainAxisAlignment.end,
 //                  children: <Widget>[
@@ -116,23 +118,29 @@ class NoteDetailState extends State<NoteDetail> {
 //                  ],
 //                ),
 
-//                ListTile(
-//                  title: DropdownButton(
-//                      items: _priorities.map((String dropDownStringItem) {
-//                        return DropdownMenuItem<String>(
-//                          value: dropDownStringItem,
-//                          child: Text(dropDownStringItem),
-//                        );
-//                      }).toList(),
-//                      style: textStyle,
-//                      value: getPriorityAsString(note.priority),
-//                      onChanged: (valueSelectedByUser) {
-//                        setState(() {
-//                          debugPrint('User selected $valueSelectedByUser');
-//                          updatePriorityAsInt(valueSelectedByUser);
-//                        });
-//                      }),
-//                ),
+                Padding(
+                  padding: const EdgeInsets.only(left:92.0),
+                  child: ListTile(
+                    leading: Text("Food Available",style: textStyle,),
+                    title: DropdownButton(
+                        items: _foodavailibility.map((String dropDownStringItem) {
+                          return DropdownMenuItem<String>(
+                            value: dropDownStringItem,
+                            child: Text(dropDownStringItem),
+                          );
+                        }).toList(),
+                        style: textStyle,
+                        value: getPriorityAsString(note.foodstate),
+                        onChanged: (valueSelectedByUser) {
+                          setState(() {
+                            debugPrint('User selected $valueSelectedByUser');
+                            updatePriorityAsInt(valueSelectedByUser);
+                          });
+                        }),
+                    trailing: const Icon(Icons.restaurant,color: Colors.deepOrange,),
+                  ),
+
+                ),
 
                 // Second Element
                 Padding(
@@ -275,11 +283,11 @@ class NoteDetailState extends State<NoteDetail> {
   // Convert the String priority in the form of integer before saving it to Database
   void updatePriorityAsInt(String value) {
     switch (value) {
-      case 'High':
-        note.priority = 1;
+      case 'Yes':
+        note.foodstate = 1;
         break;
-      case 'Low':
-        note.priority = 2;
+      case 'No':
+        note.foodstate = 2;
         break;
     }
   }
@@ -289,10 +297,10 @@ class NoteDetailState extends State<NoteDetail> {
     String priority;
     switch (value) {
       case 1:
-        priority = _priorities[0]; // 'High'
+        priority = _foodavailibility[0]; // 'High'
         break;
       case 2:
-        priority = _priorities[1]; // 'Low'
+        priority = _foodavailibility[1]; // 'Low'
         break;
     }
     return priority;

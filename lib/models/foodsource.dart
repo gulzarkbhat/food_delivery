@@ -20,7 +20,7 @@ class Food {
 
   String get address => _address;
 
-  int get priority => _priority;
+  int get foodstate => _priority;
 
   String get date => _date;
 
@@ -40,7 +40,7 @@ class Food {
     }
   }
 
-  set priority(int newPriority) {
+  set foodstate(int newPriority) {
     if (newPriority >= 1 && newPriority <= 2) {
       this._priority = newPriority;
     }
