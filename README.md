@@ -1,2 +1,2 @@
 # food_delivery
-App to make Food donation app easy and reacheable.
+App to make Food donation easy and reacheable.
