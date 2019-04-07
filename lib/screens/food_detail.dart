@@ -4,41 +4,41 @@ import 'package:flutter_app/screens/Constants.dart';
 import 'package:flutter_app/utils/database_helper.dart';
 import 'package:intl/intl.dart';
 
-class NoteDetail extends StatefulWidget {
+class FoodDetail extends StatefulWidget {
   final String appBarTitle;
-  final Food note;
+  final Food food;
 
-  NoteDetail(this.note, this.appBarTitle);
+  FoodDetail(this.food, this.appBarTitle);
 
   @override
   State<StatefulWidget> createState() {
-    return NoteDetailState(this.note, this.appBarTitle);
+    return FoodDetailState(this.food, this.appBarTitle);
   }
 }
 
-class NoteDetailState extends State<NoteDetail> {
+class FoodDetailState extends State<FoodDetail> {
   static var _foodavailibility = ['Yes', 'No'];
 
   DatabaseHelper helper = DatabaseHelper();
 
   String appBarTitle;
-  Food note;
+  Food food;
 
   TextEditingController nameController = TextEditingController();
   TextEditingController addressController = TextEditingController();
   TextEditingController phoneController = TextEditingController();
   TextEditingController emailController = TextEditingController();
 
-  NoteDetailState(this.note, this.appBarTitle);
+  FoodDetailState(this.food, this.appBarTitle);
 
   @override
   Widget build(BuildContext context) {
     TextStyle textStyle = Theme.of(context).textTheme.title;
 
-    nameController.text = note.name;
-    addressController.text = note.address;
-    phoneController.text = note.phone;
-    emailController.text = note.email;
+    nameController.text = food.name;
+    addressController.text = food.address;
+    phoneController.text = food.phone;
+    emailController.text = food.email;
 
     return WillPopScope(
         onWillPop: () {
@@ -130,7 +130,7 @@ class NoteDetailState extends State<NoteDetail> {
                           );
                         }).toList(),
                         style: textStyle,
-                        value: getPriorityAsString(note.foodstate),
+                        value: getPriorityAsString(food.foodstate),
                         onChanged: (valueSelectedByUser) {
                           setState(() {
                             debugPrint('User selected $valueSelectedByUser');
@@ -284,10 +284,10 @@ class NoteDetailState extends State<NoteDetail> {
   void updatePriorityAsInt(String value) {
     switch (value) {
       case 'Yes':
-        note.foodstate = 1;
+        food.foodstate = 1;
         break;
       case 'No':
-        note.foodstate = 2;
+        food.foodstate = 2;
         break;
     }
   }
@@ -306,63 +306,63 @@ class NoteDetailState extends State<NoteDetail> {
     return priority;
   }
 
-  // Update the title of Note object
+  // Update the title of Food object
   void updateTitle() {
-    note.name = nameController.text;
+    food.name = nameController.text;
   }
 
-  // Update the description of Note object
+  // Update the description of Food object
   void updateDescription() {
-    note.address = addressController.text;
+    food.address = addressController.text;
   }
 
   void updateContact() {
-    note.phone = phoneController.text;
+    food.phone = phoneController.text;
   }
 
   void updateEmail() {
-    note.email = emailController.text;
+    food.email = emailController.text;
   }
 
   // Save data to database
   void _save() async {
     moveToLastScreen();
 
-    note.date = DateFormat.yMMMd().format(DateTime.now());
+    food.date = DateFormat.yMMMd().format(DateTime.now());
     int result;
-    if (note.id != null) {
+    if (food.id != null) {
       // Case 1: Update operation
-      result = await helper.updateNote(note);
+      result = await helper.updateFood(food);
     } else {
       // Case 2: Insert Operation
-      result = await helper.insertNote(note);
+      result = await helper.insertFood(food);
     }
 
     if (result != 0) {
       // Success
-      _showAlertDialog('Status', 'Note Saved Successfully');
+      _showAlertDialog('Status', 'Food Saved Successfully');
     } else {
       // Failure
-      _showAlertDialog('Status', 'Problem Saving Note');
+      _showAlertDialog('Status', 'Problem Saving Food');
     }
   }
 
   void _delete() async {
     moveToLastScreen();
 
-    // Case 1: If user is trying to delete the NEW NOTE i.e. he has come to
-    // the detail page by pressing the FAB of NoteList page.
-    if (note.id == null) {
-      _showAlertDialog('Status', 'No Note was deleted');
+    // Case 1: If user is trying to delete the NEW Food i.e. he has come to
+    // the detail page by pressing the FAB of FoodList page.
+    if (food.id == null) {
+      _showAlertDialog('Status', 'No Food was deleted');
       return;
     }
 
-    // Case 2: User is trying to delete the old note that already has a valid ID.
-    int result = await helper.deleteNote(note.id);
+    // Case 2: User is trying to delete the old food that already has a valid ID.
+    int result = await helper.deleteFood(food.id);
     if (result != 0) {
-      _showAlertDialog('Status', 'Note Deleted Successfully');
+      _showAlertDialog('Status', 'Food Deleted Successfully');
     } else {
-      _showAlertDialog('Status', 'Error Occured while Deleting Note');
+      _showAlertDialog('Status', 'Error Occured while Deleting Food');
     }
   }
 

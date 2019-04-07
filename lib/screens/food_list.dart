@@ -121,9 +121,9 @@ class FoodStatusListState extends State<FoodStatusList> {
 		}
 	}
 
-	void _delete(BuildContext context, Food note) async {
+	void _delete(BuildContext context, Food food) async {
 
-		int result = await databaseHelper.deleteNote(note.id);
+		int result = await databaseHelper.deleteFood(food.id);
 		if (result != 0) {
 			_showSnackBar(context, 'Food Deleted Successfully');
 			updateListView();
@@ -138,7 +138,7 @@ class FoodStatusListState extends State<FoodStatusList> {
 
   void navigateToDetail(Food food, String title) async {
 	  bool result = await Navigator.push(context, MaterialPageRoute(builder: (context) {
-		  return NoteDetail(food, title);
+		  return FoodDetail(food, title);
 	  }));
 
 	  if (result == true) {
@@ -151,11 +151,11 @@ class FoodStatusListState extends State<FoodStatusList> {
 		final Future<Database> dbFuture = databaseHelper.initializeDatabase();
 		dbFuture.then((database) {
 
-			Future<List<Food>> noteListFuture = databaseHelper.getNoteList();
-			noteListFuture.then((noteList) {
+			Future<List<Food>> foodListFuture = databaseHelper.getFoodList();
+			foodListFuture.then((foodList) {
 				setState(() {
-				  this.foodStatusList = noteList;
-				  this.count = noteList.length;
+				  this.foodStatusList = foodList;
+				  this.count = foodList.length;
 				});
 			});
 		});
