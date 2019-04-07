@@ -56,33 +56,33 @@ class DatabaseHelper {
 	Future<List<Map<String, dynamic>>> getFoodMapList() async {
 		Database db = await this.database;
 
-//		var result = await db.rawQuery('SELECT * FROM $noteTable order by $colPriority ASC');
+//		var result = await db.rawQuery('SELECT * FROM $foodTable order by $colPriority ASC');
 		var result = await db.query(foodTable, orderBy: '$colPriority ASC');
 		return result;
 	}
 
-	// Insert Operation: Insert a Note object to database
-	Future<int> insertFood(Food note) async {
+	// Insert Operation: Insert a Food object to database
+	Future<int> insertFood(Food food) async {
 		Database db = await this.database;
-		var result = await db.insert(foodTable, note.toMap());
+		var result = await db.insert(foodTable, food.toMap());
 		return result;
 	}
 
-	// Update Operation: Update a Note object and save it to database
-	Future<int> updateFood(Food note) async {
+	// Update Operation: Update a Food object and save it to database
+	Future<int> updateFood(Food food) async {
 		var db = await this.database;
-		var result = await db.update(foodTable, note.toMap(), where: '$colId = ?', whereArgs: [note.id]);
+		var result = await db.update(foodTable, food.toMap(), where: '$colId = ?', whereArgs: [food.id]);
 		return result;
 	}
 
-	// Delete Operation: Delete a Note object from database
+	// Delete Operation: Delete a Food object from database
 	Future<int> deleteFood(int id) async {
 		var db = await this.database;
 		int result = await db.rawDelete('DELETE FROM $foodTable WHERE $colId = $id');
 		return result;
 	}
 
-	// Get number of Note objects in database
+	// Get number of Food objects in database
 	Future<int> getCount() async {
 		Database db = await this.database;
 		List<Map<String, dynamic>> x = await db.rawQuery('SELECT COUNT (*) from $foodTable');
@@ -90,19 +90,19 @@ class DatabaseHelper {
 		return result;
 	}
 
-	// Get the 'Map List' [ List<Map> ] and convert it to 'Note List' [ List<Note> ]
+	// Get the 'Map List' [ List<Map> ] and convert it to 'Food List' [ List<Food> ]
 	Future<List<Food>> getFoodList() async {
 
-		var noteMapList = await getFoodMapList(); // Get 'Map List' from database
-		int count = noteMapList.length;         // Count the number of map entries in db table
+		var foodMapList = await getFoodMapList(); // Get 'Map List' from database
+		int count = foodMapList.length;         // Count the number of map entries in db table
 
-		List<Food> noteList = List<Food>();
-		// For loop to create a 'Note List' from a 'Map List'
+		List<Food> foodList = List<Food>();
+		// For loop to create a 'Food List' from a 'Map List'
 		for (int i = 0; i < count; i++) {
-			noteList.add(Food.fromMapObject(noteMapList[i]));
+			foodList.add(Food.fromMapObject(foodMapList[i]));
 		}
 
-		return noteList;
+		return foodList;
 	}
 
 }
