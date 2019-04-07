@@ -95,7 +95,7 @@ class FoodStatusListState extends State<FoodStatusList> {
 	Color getFoodAvailibilityColor(int priority) {
 		switch (priority) {
 			case 1:
-				return Colors.red;
+				return Colors.green;
 				break;
 			case 2:
 				return Colors.yellow;
@@ -110,7 +110,7 @@ class FoodStatusListState extends State<FoodStatusList> {
 	Icon getPriorityIcon(int priority) {
 		switch (priority) {
 			case 1:
-				return Icon(Icons.play_arrow);
+				return Icon(Icons.restaurant);
 				break;
 			case 2:
 				return Icon(Icons.keyboard_arrow_right);
